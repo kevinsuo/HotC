@@ -45,8 +45,8 @@ def hash_string(string):
 
 def getConfiguration(string):
         parser = argparse.ArgumentParser(description='parse user input')
-        parser.add_argument('-i', action="store", default=True)
-        parser.add_argument('-t', action="store", default=True)
+        parser.add_argument('-i', action="store_true")
+        parser.add_argument('-t', action="store_true")
         parser.add_argument('--name', action="store", dest="name")
         parser.add_argument('--network', action="store", dest="network")
         parser.add_argument("IMAGE", type=str, help="the image")
@@ -57,7 +57,8 @@ def getConfiguration(string):
 
 
 def main():
-        cmd = "sudo docker run -i -t --name bridge2 --network abc  ubuntu:16.10 /bin/bash"
+        cmd = "sudo docker run -i -t --name con1 --network abc  ubuntu:16.10 /bin/bash"
+        print cmd
         string = cmd.lstrip('sudo docker run')
         getConfiguration(string)
 #       print string
@@ -72,11 +73,18 @@ def main1():
                 # Usage: $ docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
                 # e.g., sudo docker run -it --name bridge2  ubuntu:16.10 /bin/bash
                 key = raw_input()
+
+                # hit or miss
                 value = db.get(key)
 
                 # if the hot container exists
                 if (value):
                         print("%s %s" % ("value is ", value))
+                        # use this container to run
+                        # after execution, clean the container
+                        # how to clean?
+
+
                 # if not, run a new container and add meta data to kv store
                 else:
                         value = hash_string(key)

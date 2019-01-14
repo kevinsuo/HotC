@@ -1,1 +1,4 @@
 # HotC
+
+
+pip install pickledb
