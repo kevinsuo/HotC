@@ -42,6 +42,8 @@ def hash_string(string):
 
 # 其中选项有两种类型：短选项和长选项，前者以 '-' 作为前导符，后接一个字符；后者以 '--' 作为前导符，后接一个字符串。
 
+# Usage: $ docker exec [OPTIONS] CONTAINER [COMMAND] [ARG...]
+
 
 def getConfiguration(string):
         parser = argparse.ArgumentParser(description='parse user input')
@@ -53,43 +55,57 @@ def getConfiguration(string):
         parser.add_argument("COMMAND", type=str, help="the command")
 
         args = parser.parse_args(string.split())
-        print args
+#        print args
+        return args
 
 
 def main():
-        cmd = "sudo docker run -i -t --name con1 --network abc  ubuntu:16.10 /bin/bash"
-        print cmd
-        string = cmd.lstrip('sudo docker run')
-        getConfiguration(string)
-#       print string
-
-
-def main1():
         initdb()
-        print "run main()!"
 
         while (1):
                 # docker run commands:
                 # Usage: $ docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
                 # e.g., sudo docker run -it --name bridge2  ubuntu:16.10 /bin/bash
-                key = raw_input()
+            cmd = raw_input()
 
-                # hit or miss
-                value = db.get(key)
+#            cmd = "sudo docker run -i -t --name con1 --network abc  ubuntu:16.10 /bin/bash"
+            print cmd
+            string = cmd.lstrip('sudo docker run')
+            args = getConfiguration(string)
 
-                # if the hot container exists
-                if (value):
-                        print("%s %s" % ("value is ", value))
+            key = ""
+
+            if args.i:
+                key = key + "true" + " "
+            else:
+                key = key + "false" + " "
+
+            if args.t:
+                key = key + "true" + " "
+            else:
+                key = key + "false" + " "
+
+            key = key + args.network + " " + args.IMAGE
+
+            print key
+
+            # hit or miss
+            value = db.get(key)
+
+            # if the hot container exists
+            if value:
+                print "hit"
+                print("%s %s" % ("value is ", value))
                         # use this container to run
                         # after execution, clean the container
                         # how to clean?
 
-
-                # if not, run a new container and add meta data to kv store
-                else:
-                        value = hash_string(key)
-                        db.set(key, value)
-                        print("%s %s %s" % ("add new key/value", key, value))
+            # if not, run a new container and add meta data to kv store                
+            else:
+                print "miss"
+                value = hash_string(key)
+                db.set(key, value)
+                print("%s\n%s : %s" % ("add new key:value", key, value))
 
 
 
