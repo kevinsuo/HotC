@@ -96,13 +96,16 @@ def main():
             if value:
                 print "hit"
                 print("%s %s" % ("value is ", value))
-                        # use this container to run
+                # if the container is running? if not
+                        # use this container to run the #COMMAND
                         # after execution, clean the container
                         # how to clean?
 
             # if not, run a new container and add meta data to kv store                
             else:
                 print "miss"
+
+                # run the container 
                 value = hash_string(key)
                 db.set(key, value)
                 print("%s\n%s : %s" % ("add new key:value", key, value))
