@@ -90,16 +90,29 @@ def main():
             print key
 
             # hit or miss
+            # value == 0 : no such containers
+            # value == 1 : container is running other apps and not available
+            # value == 2 : container is available
             value = db.get(key)
 
             # if the hot container exists
             if value:
                 print "hit"
                 print("%s %s" % ("value is ", value))
-                # if the container is running? if not
+                # if the container is running? 
+                # container status: 
+                # One of created, restarting, running, removing, paused, exited, or dead
+
+                #if not
                         # use this container to run the #COMMAND
                         # after execution, clean the container
                         # how to clean?
+
+                        # Clean up any threads
+                        # Reset static data to type default
+                        # Close file descriptors
+
+                        # 可以用container volume来读写
 
             # if not, run a new container and add meta data to kv store                
             else:
