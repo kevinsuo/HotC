@@ -1,6 +1,6 @@
 #!/bin/env python
 #-*- coding:utf-8 -*-
-
+# python test.py
 
 def main():
     j = 0;
