@@ -1,6 +1,12 @@
 /*
  * javac test.java
  * java test
+ *
+ * for alpine linux
+ * apk add --no-cache openjdk8
+ * add the following to path
+ * ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk
+ * ENV PATH="$JAVA_HOME/bin:${PATH}"
  */
 
 public class test {

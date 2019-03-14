@@ -4,6 +4,8 @@ import "fmt"
 /*
  * go build test.go
  * ./test
+ *
+ * for edge linux: apk add --no-cache git make musl-dev go
  */
 
 func main() {

@@ -1,5 +1,8 @@
 /*
  * $ nodejs test.js
+ *
+ * alpine linux: apk add --update nodejs
+ * then: node test.js
  */
 
 var j=0;
